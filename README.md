@@ -2,16 +2,11 @@
 
 ## Lineamientos generales del proyecto
 
-
-- El proyecto utiliza la suite de truffle.
+- El proyecto utiliza un entorno para desarrollo Ethereum para profesionales: Hardhat.
 
 - El código del proyecto está formateado conforme estándares recomendados por solidity.
 
-- Los contratos cuentan con sus unit tests (10 Unit Tests en el contrato Manager.sol, y 6 Unit Tests en el contrato Ticket.sol), intentando cubrir el mayor coverage posible.
-
-- El proyecto cuenta con una migration.
-
-- El proyecto se encuentra deployado en la testnet de Goerli (https://goerli.etherscan.io/tx/0xc9f8ed9df2e2e2be32c6e6d5696532fdb5351fadccf2eccbb3ccf966c7b54a9e).
+- El proyecto se encuentra deployado en la testnet de Goerli (proximamente..).
 
 - Opcional: agregar algún script para ejecutar (Está agregado en la respectiva carpeta).
 
