@@ -54,4 +54,56 @@ contract Ticket {
 
     // changePrice()
     // changeTicketStatus()
+    modifier isOwner() {
+        require(msg.sender == owner, "You are not the owner");
+        _;
+    }
+
+    function getPrice() public {
+        emit ShowPrice(price);
+    }
+
+    function getMarketPrice() public view returns (uint256) {
+        return price;
+    }
+
+    function getOwner() public view returns (address) {
+        return owner;
+    }
+
+    function getTicketId() public view returns (uint256) {
+        return id;
+    }
+
+    function getEventName() public view returns (string memory) {
+        return eventName;
+    }
+
+    function getTransferStatus() public view returns (TransferStatus) {
+        return transferStatus;
+    }
+
+    function getTicketStatus() public view returns (TicketStatus) {
+        return ticketStatus;
+    }
+
+    //changePrice()
+    function changePrice(uint256 _price) external isOwner {
+        require(_price != price, "The price is the same");
+        price = _price;
+    }
+
+    //changeTransferStatus()
+    function setTransferStatus(TransferStatus newStatus) external {
+        transferStatus = newStatus;
+        getTransferStatus();
+        emit newTransferStatus("Transfer status changed");
+    }
+
+    //changeTicketStatus()
+    function setTicketStatus(TicketStatus newStatus) external {
+        ticketStatus = newStatus;
+        getTicketStatus();
+        emit newTicketStatus("Ticket status changed");
+    }
 }
