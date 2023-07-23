@@ -108,7 +108,7 @@ contract Ticket {
 
     function setTicketId() private view returns (uint256) {
         uint256 num = uint256(
-            keccak256(abi.encodePacked(msg.sender, block.timestamp, block.basefee))
+            keccak256(abi.encodePacked(msg.sender, block.timestamp, block.difficulty))
         );
         return num;
     }
