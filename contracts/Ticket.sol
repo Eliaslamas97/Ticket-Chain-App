@@ -41,7 +41,7 @@ contract Ticket {
         uint256 _price,
         address _owner
     ) {
-        // id = setId();
+        id = setTicketId();
         eventType = _eventType;
         ticketStatus = _ticketStatus;
         transferStatus = _transferStatus;
@@ -52,8 +52,6 @@ contract Ticket {
         owner = _owner;
     }
 
-    // changePrice()
-    // changeTicketStatus()
     modifier isOwner() {
         require(msg.sender == owner, "You are not the owner");
         _;
@@ -87,23 +85,61 @@ contract Ticket {
         return ticketStatus;
     }
 
-    //changePrice()
     function changePrice(uint256 _price) external isOwner {
         require(_price != price, "The price is the same");
         price = _price;
     }
 
-    //changeTransferStatus()
     function setTransferStatus(TransferStatus newStatus) external {
         transferStatus = newStatus;
         getTransferStatus();
         emit newTransferStatus("Transfer status changed");
     }
 
-    //changeTicketStatus()
     function setTicketStatus(TicketStatus newStatus) external {
         ticketStatus = newStatus;
         getTicketStatus();
         emit newTicketStatus("Ticket status changed");
+    }
+
+    function changeOwner(address newOwner) external isOwner {
+        owner = newOwner;
+    }
+
+    function setTicketId() private view returns (uint256) {
+        uint256 num = uint256(
+            keccak256(abi.encodePacked(msg.sender, block.timestamp, block.basefee))
+        );
+        return num;
+    }
+
+    function getTicketData()
+        public
+        view
+        returns (
+            address,
+            uint256,
+            string memory,
+            string memory,
+            string memory,
+            EventType,
+            TicketStatus,
+            TransferStatus,
+            uint256,
+            address
+        )
+    {
+        return (
+            address(this),
+            id,
+            eventName,
+            eventDate,
+            eventDescription,
+            eventType,
+            ticketStatus,
+            transferStatus,
+            price,
+            owner
+        );
     }
 }
